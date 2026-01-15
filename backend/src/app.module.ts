@@ -1,6 +1,4 @@
-// src/app.module.ts
-import * as dotenv from 'dotenv';
-dotenv.config({ path: './.env' }); // <-- load .env first
+// backend/src/app.module.ts
 
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -29,7 +27,12 @@ import { ClassificationTypeModule } from './classification-type/classification-t
 import { ClassificationValueModule } from './classification-value/classification-value.module';
 import { ExperienceClassificationModule } from './experience-classification/experience-classification.module';
 
-import { getEnv } from './config';
+// 🔹 Inline getEnv() helper
+const getEnv = (key: string, defaultValue = ''): string => {
+  const value = process.env[key];
+  if (!value) console.warn(`⚠️ Environment variable ${key} is not set.`);
+  return (value || defaultValue).trim();
+};
 
 console.log('CWD:', process.cwd());
 console.log('ENV FILE CHECK DONE');
@@ -40,7 +43,7 @@ console.log('ENV FILE CHECK DONE');
     TypeOrmModule.forRoot({
       type: 'mssql',
       host: getEnv('DB_HOST'),
-      port: Number(getEnv('DB_PORT', '1433')),
+      port: 1433,
       username: getEnv('DB_USER'),
       password: getEnv('DB_PASSWORD'),
       database: getEnv('DB_NAME'),
@@ -52,7 +55,7 @@ console.log('ENV FILE CHECK DONE');
       },
     }),
 
-    // 🔹 Existing feature modules
+    // 🔹 Feature modules
     AuthModule,
     CompetenciesModule,
     LlmModule,
