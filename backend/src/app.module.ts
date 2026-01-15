@@ -27,6 +27,7 @@ import { ClassificationTypeModule } from './classification-type/classification-t
 import { ClassificationValueModule } from './classification-value/classification-value.module';
 import { ExperienceClassificationModule } from './experience-classification/experience-classification.module';
 import { DbKeepAliveService } from './db-keep-alive.service';
+import { TestModule } from './test/test.module';
 
 // 🔹 Inline getEnv() helper
 const getEnv = (key: string, defaultValue = ''): string => {
@@ -50,6 +51,7 @@ console.log('ENV FILE CHECK DONE');
       database: getEnv('DB_NAME'),
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true, // ✅ For dev only, remove in production
+      logging: true,
       options: {
         encrypt: true,
         trustServerCertificate: false,
@@ -79,7 +81,7 @@ console.log('ENV FILE CHECK DONE');
     ClassificationTypeModule,
     ClassificationValueModule,
     ExperienceClassificationModule,
-    DbKeepAliveService,
+    TestModule,
   ],
   controllers: [AppController],
   providers: [AppService, DbKeepAliveService],
