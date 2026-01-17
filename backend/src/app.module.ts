@@ -26,7 +26,7 @@ import { PrimarySectorModule } from './primary-sector/primary-sector.module';
 import { ClassificationTypeModule } from './classification-type/classification-type.module';
 import { ClassificationValueModule } from './classification-value/classification-value.module';
 import { ExperienceClassificationModule } from './experience-classification/experience-classification.module';
-// import { DbKeepAliveService } from './db-keep-alive.service';
+import { DbKeepAliveService } from './db-keep-alive.service';
 import { TestModule } from './test/test.module';
 
 // 🔹 Inline getEnv() helper
@@ -84,7 +84,6 @@ console.log('ENV FILE CHECK DONE');
     TestModule,
   ],
   controllers: [AppController],
-  providers: [AppService, // DbKeepAliveService
-  ],
+  providers: [AppService, DbKeepAliveService],
 })
 export class AppModule {}
