@@ -11,14 +11,18 @@ console.log('DB_NAME:', process.env.DB_NAME);
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  // app.enableCors({
+  //   origin: [
+  //     'http://localhost:3000',
+  //     'https://competencyapp.azurewebsites.net',
+  //     'https://www.kriskilsby.com',
+  //   ],
+  //   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  //   credentials: true,
+  // });
+
   app.enableCors({
-    origin: [
-      'http://localhost:3000',
-      'https://competencyapp.azurewebsites.net',
-      'https://www.kriskilsby.com',
-    ],
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true,
+    origin: true,
   });
 
   await app.listen(process.env.PORT || 3001);
